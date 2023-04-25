@@ -1,0 +1,6 @@
+click
+httpx
+scapy
+dnspython
+numpy
+scipy

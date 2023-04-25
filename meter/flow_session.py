@@ -28,7 +28,9 @@ class FlowSession(DefaultSession):
 
         self.clumped_flows_per_label = defaultdict(list)
 
-        super(FlowSession, self).__init__(None, True, *args, **kwargs)
+        kwargs['prn'] = None
+        kwargs['store'] = True
+        super(FlowSession, self).__init__(*args, **kwargs)
 
     def toPacketList(self):
         # Sniffer finished all the packets it needed to sniff.
