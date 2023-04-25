@@ -1,6 +1,8 @@
 import time
 
 import dns.resolver
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 
 from doh import doh
 
@@ -15,6 +17,14 @@ def udp(dns_server: str, qname: str):
 
     # for ip_address in answer:
     #    print(ip_address)
+
+
+def firefox_headless(url: str):
+    options = Options()
+    options.add_argument("-headless")
+
+    with webdriver.Firefox(options=options) as driver:
+        driver.get(url)
 
 
 def verify():
@@ -50,6 +60,13 @@ def test_udp(server):
         udp(server, "louie.lu")
         udp(server, "google.com")
         udp(server, "cs.unc.edu")
+
+
+def test_firefox_headless(server, target_url):
+    for i in range(10):
+        # XXX: Setup the DNS server??
+        print(f"{i}th firefox headless")
+        firefox_headless(target_url)
 
 
 def main():
