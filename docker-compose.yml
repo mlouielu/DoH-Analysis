@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  query:
+    build: .
+    depends_on:
+      - coredns
+    dns:
+      - 172.28.233.8
+    networks:
+      backend:
+        ipv4_address: 172.28.233.9
+  coredns:
+    image: "coredns/coredns"
+    volumes:
+      - ${PWD}/Corefile:/Corefile:ro
+    networks:
+      backend:
+        ipv4_address: 172.28.233.8
+    restart: unless-stopped
+
+
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 172.28.233.0/24

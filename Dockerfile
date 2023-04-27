@@ -22,4 +22,6 @@ COPY requirements.txt /app
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-CMD ["./run.sh"]
+RUN apt install dnsutils iputils-ping -y
+
+CMD echo $(dig -p 1053 @172.28.233.8 google.com)
